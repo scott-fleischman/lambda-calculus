@@ -1,7 +1,7 @@
 module Lambda where
 
 data Term v
-  = Variable v
-  | Abstraction v (Term v)
-  | Application (Term v) (Term v)
+  = Var v
+  | Lam v (Term v)
+  | Ap (Term v) (Term v)
   deriving (Eq, Ord, Show, Read)
