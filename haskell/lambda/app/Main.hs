@@ -5,19 +5,15 @@ import Lambda
 main :: IO ()
 main = do
   _ <- putStrLn "Enter term"
-  go
-  where
-    go = do
-      input <- getLine
-      if null input then
-        return ()
-      else
-        do
-          _ <- putStrLn . printTerm . parseTerm $ input
-          go
+  input <- getContents
+  let term = parseTerm input
+  _ <- putStrLn (seq term "Parsed term:")
+  _ <- putStrLn . show $ term
+  _ <- putStrLn ""
+  let redexes = getRedexes term
+  _ <- putStrLn ((show . length $ redexes) ++ " redexes:")
+  _ <- mapM_ (putStrLn . (++ "\n") . show) redexes
+  return ()
 
 parseTerm :: String -> Term String
 parseTerm = read
-
-printTerm :: Term String -> String
-printTerm = show

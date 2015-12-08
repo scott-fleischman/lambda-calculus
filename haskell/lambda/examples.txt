@@ -1,0 +1,15 @@
+Example terms:
+
+App
+  (Lam "x" (Var "x"))
+  ( App
+    (Lam "x" (Var "x"))
+    (Lam
+      "z"
+      ( App
+        (Lam "x" (Var "x"))
+        (Var "z")
+      )
+    )
+  )
+
