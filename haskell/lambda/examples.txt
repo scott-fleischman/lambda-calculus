@@ -1,15 +1,146 @@
 Example terms:
 
-App
+ex (3 redexes)
+( Ap
   (Lam "x" (Var "x"))
-  ( App
+  ( Ap
     (Lam "x" (Var "x"))
     (Lam
       "z"
-      ( App
+      ( Ap
         (Lam "x" (Var "x"))
         (Var "z")
       )
     )
   )
+)
 
+true:
+( Lam "t"
+  ( Lam "f"
+    (Var "t")
+  )
+)
+
+false:
+( Lam "t"
+  ( Lam "f"
+    (Var "f")
+  )
+)
+
+test:
+( Lam "l"
+  ( Lam "m"
+    ( Lam "n"
+      ( Ap
+        (Var "m")
+        (Var "n")
+      )
+    )
+  )
+)
+
+ex: test true v w
+( Ap
+  ( Ap
+    ( Ap
+      ( Lam "l"
+        ( Lam "m"
+          ( Lam "n"
+            ( Ap
+              (Var "m")
+              (Var "n")
+            )
+          )
+        )
+      )
+      ( Lam "t"
+        ( Lam "f"
+          (Var "t")
+        )
+      )
+    )
+    (Var "v")
+  )
+  (Var "w")
+)
+
+and:
+( Lam "b"
+  ( Lam "c"
+    ( Ap
+      ( Ap
+        (Var "b")
+        (Var "c")
+      )
+      ( Lam "t"
+        ( Lam "f"
+          (Var "f")
+        )
+      )
+    )
+  )
+)
+
+ex: and true true
+( Ap
+  ( Ap
+    ( Lam "b"
+      ( Lam "c"
+        ( Ap
+          ( Ap
+            (Var "b")
+            (Var "c")
+          )
+          ( Lam "t"
+            ( Lam "f"
+              (Var "f")
+            )
+          )
+        )
+      )
+    )
+    ( Lam "t"
+      ( Lam "f"
+        (Var "t")
+      )
+    )
+  )
+  ( Lam "t"
+    ( Lam "f"
+      (Var "t")
+    )
+  )
+)
+
+ex: and true false
+( Ap
+  ( Ap
+    ( Lam "b"
+      ( Lam "c"
+        ( Ap
+          ( Ap
+            (Var "b")
+            (Var "c")
+          )
+          ( Lam "t"
+            ( Lam "f"
+              (Var "f")
+            )
+          )
+        )
+      )
+    )
+    ( Lam "t"
+      ( Lam "f"
+        (Var "t")
+      )
+    )
+  )
+  ( Lam "t"
+    ( Lam "f"
+      (Var "f")
+    )
+  )
+)
