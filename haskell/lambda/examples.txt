@@ -1,142 +1,25 @@
 Example terms:
 
 ex (3 redexes)
-Lam "x" (Var "x")
-:@
-( Lam "x" (Var "x")
-  :@
-  Lam "z"
-    ( Lam "x" (Var "x")
-      :@
-      Var "z"
-    )
-)
+Lam "x" (Var "x") :@ (Lam "x" (Var "x") :@ Lam "z" (Lam "x" (Var "x") :@ Var "z"))
 
 true:
-( Lam "t"
-  ( Lam "f"
-    (Var "t")
-  )
-)
+Lam "t" (Lam "f" (Var "t"))
 
 false:
-( Lam "t"
-  ( Lam "f"
-    (Var "f")
-  )
-)
+Lam "t" (Lam "f" (Var "f"))
 
 test:
-( Lam "l"
-  ( Lam "m"
-    ( Lam "n"
-      ( Var "m"
-        :@
-        Var "n"
-      )
-    )
-  )
-)
+Lam "l" (Lam "m" (Lam "n" (Var "m" :@ Var "n")))
 
 ex: test true v w
-( ( ( Lam "l"
-      ( Lam "m"
-        ( Lam "n"
-          ( Var "m"
-            :@
-            Var "n"
-          )
-        )
-      )
-      :@
-      ( Lam "t"
-        ( Lam "f"
-          (Var "t")
-        )
-      )
-    )
-    :@
-    (Var "v")
-  )
-  :@
-  (Var "w")
-)
+((Lam "l" (Lam "m" (Lam "n" (Var "m" :@ Var "n"))) :@ Lam "t" (Lam "f" (Var "t"))) :@ Var "v") :@ Var "w"
 
 and:
-( Lam "b"
-  ( Lam "c"
-    ( ( Var "b"
-        :@
-        Var "c"
-      )
-      :@
-      ( Lam "t"
-        ( Lam "f"
-          (Var "f")
-        )
-      )
-    )
-  )
-)
+Lam "b" (Lam "c" ((Var "b" :@ Var "c") :@ Lam "t" (Lam "f" (Var "f"))))
 
 ex: and true true
-( Ap
-  ( Ap
-    ( Lam "b"
-      ( Lam "c"
-        ( Ap
-          ( Ap
-            (Var "b")
-            (Var "c")
-          )
-          ( Lam "t"
-            ( Lam "f"
-              (Var "f")
-            )
-          )
-        )
-      )
-    )
-    ( Lam "t"
-      ( Lam "f"
-        (Var "t")
-      )
-    )
-  )
-  ( Lam "t"
-    ( Lam "f"
-      (Var "t")
-    )
-  )
-)
+(Lam "b" (Lam "c" ((Var "b" :@ Var "c") :@ Lam "t" (Lam "f" (Var "f")))) :@ Lam "t" (Lam "f" (Var "t"))) :@ Lam "t" (Lam "f" (Var "t"))
 
 ex: and true false
-( Ap
-  ( Ap
-    ( Lam "b"
-      ( Lam "c"
-        ( Ap
-          ( Ap
-            (Var "b")
-            (Var "c")
-          )
-          ( Lam "t"
-            ( Lam "f"
-              (Var "f")
-            )
-          )
-        )
-      )
-    )
-    ( Lam "t"
-      ( Lam "f"
-        (Var "t")
-      )
-    )
-  )
-  ( Lam "t"
-    ( Lam "f"
-      (Var "f")
-    )
-  )
-)
+(Lam "b" (Lam "c" ((Var "b" :@ Var "c") :@ Lam "t" (Lam "f" (Var "f")))) :@ Lam "t" (Lam "f" (Var "t"))) :@ Lam "t" (Lam "f" (Var "f"))

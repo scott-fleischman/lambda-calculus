@@ -18,3 +18,8 @@ getFreeVariables :: Ord v => Term v -> Set.Set v
 getFreeVariables (Var v) = Set.singleton v
 getFreeVariables (Lam v t) = getFreeVariables t `Set.difference` Set.singleton v
 getFreeVariables (t1 :@ t2) = getFreeVariables t1 `Set.union` getFreeVariables t2
+
+getSize :: Term v -> Int
+getSize (Var _) = 1
+getSize (Lam _ t) = 1 + getSize t
+getSize (t1 :@ t2) = 1 + getSize t1 + getSize t2

@@ -10,10 +10,15 @@ main = do
   _ <- putStrLn (seq term "Parsed term:")
   _ <- putStrLn . show $ term
   _ <- putStrLn ""
-  let redexes = getRedexes term
-  _ <- printSeparateLines "redexes" redexes
+
+  _ <- putStrLn $ "Size: " ++ (show . getSize $ term)
+  _ <- putStrLn ""
+
   let freeVariables = getFreeVariables term
   _ <- printSeparateLines "free variables" freeVariables
+
+  let redexes = getRedexes term
+  _ <- printSeparateLines "redexes" redexes
   return ()
 
 printSeparateLines :: (Show a, Foldable t) => String -> t a -> IO ()
