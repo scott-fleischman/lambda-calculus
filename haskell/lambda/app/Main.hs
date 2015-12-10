@@ -11,8 +11,15 @@ main = do
   _ <- putStrLn . show $ term
   _ <- putStrLn ""
   let redexes = getRedexes term
-  _ <- putStrLn ((show . length $ redexes) ++ " redexes:")
-  _ <- mapM_ (putStrLn . (++ "\n") . show) redexes
+  _ <- printSeparateLines "redexes" redexes
+  let freeVariables = getFreeVariables term
+  _ <- printSeparateLines "free variables" freeVariables
+  return ()
+
+printSeparateLines :: (Show a, Foldable t) => String -> t a -> IO ()
+printSeparateLines s xs = do
+  _ <- putStrLn ((show . length $ xs) ++ " " ++ s ++ ":")
+  _ <- mapM_ (putStrLn . (++ "\n") . show) xs
   return ()
 
 parseTerm :: String -> Term String
